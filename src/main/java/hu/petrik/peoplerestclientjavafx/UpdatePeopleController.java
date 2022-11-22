@@ -43,9 +43,11 @@ public class UpdatePeopleController extends Controller {
             return;
         }
         // TODO: validate email format
-        Person newPerson = new Person(0, name, email, age);
-        Gson converter = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-        String json = converter.toJson(newPerson);
+        this.person.setName(name);
+        this.person.setEmail(email);
+        this.person.setAge(age);
+        Gson converter = new Gson();
+        String json = converter.toJson(this.person);
         try {
             Response response = RequestHandler.post(App.BASE_URL, json);
             if (response.getResponseCode() == 201) {
