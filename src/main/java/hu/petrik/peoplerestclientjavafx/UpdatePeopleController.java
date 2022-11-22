@@ -62,4 +62,7 @@ public class UpdatePeopleController extends Controller {
         }
     }
 
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 }
