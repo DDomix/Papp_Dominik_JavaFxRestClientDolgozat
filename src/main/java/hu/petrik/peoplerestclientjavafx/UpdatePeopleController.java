@@ -64,5 +64,8 @@ public class UpdatePeopleController extends Controller {
 
     public void setPerson(Person person) {
         this.person = person;
+        nameField.setText((this.person.getName()));
+        emailField.setText((this.person.getEmail()));
+        ageField.getValueFactory().setValue((this.person.getAge()));
     }
 }
