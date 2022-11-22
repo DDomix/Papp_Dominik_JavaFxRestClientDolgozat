@@ -86,15 +86,45 @@ public class ListPeopleController extends Controller {
 
     @FXML
     public void updateClick(ActionEvent actionEvent) {
+        int selectedIndex = peopleTable.getSelectionModel().getSelectedIndex();
+        if (selectedIndex == -1) {
+            warning("Please select a person from the list first");
+            return;
+        }
+        Person selected = peopleTable.getSelectionModel().getSelectedItem();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("update-people-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+            Stage stage = new Stage();
+            stage.setTitle("Update People");
+            stage.setScene(scene);
+            UpdatePeopleController controller= fxmlLoader.getController();
+            controller.setPerson(selected);
+            stage.show();
+            insertButton.setDisable(true);
+            updateButton.setDisable(true);
+            deleteButton.setDisable(true);
+            stage.setOnHidden(event -> {
+                insertButton.setDisable(false);
+                updateButton.setDisable(false);
+                deleteButton.setDisable(false);
+                try {
+                    loadPeopleFromServer();
+                } catch (IOException e) {
+                    error("An error occurred while communicating with the server");
+                }
+            });
+        } catch (IOException e) {
+            error("Could not load form", e.getMessage());
+        }
+
     }
 
     @FXML
     public void deleteClick(ActionEvent actionEvent) {
         int selectedIndex = peopleTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex == -1) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("Please select a person from the list first");
-            alert.show();
+            warning("Please select a person from the list first");
             return;
         }
 

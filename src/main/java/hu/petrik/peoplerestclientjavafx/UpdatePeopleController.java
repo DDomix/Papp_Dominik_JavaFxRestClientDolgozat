@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -22,6 +23,14 @@ public class UpdatePeopleController extends Controller {
     private Button updateButton;
     private Person person;
 
+
+    public void setPerson(Person person) {
+        this.person = person;
+        nameField.setText((this.person.getName()));
+        emailField.setText((this.person.getEmail()));
+        ageField.getValueFactory().setValue((this.person.getAge()));
+    }
+
     @FXML
     private void initialize() {
         SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
@@ -30,7 +39,7 @@ public class UpdatePeopleController extends Controller {
     }
 
     @FXML
-    public void submitClick(ActionEvent actionEvent) {
+    public void updateClick(ActionEvent actionEvent) {
         String name = nameField.getText().trim();
         String email = emailField.getText().trim();
         int age = ageField.getValue();
@@ -49,12 +58,11 @@ public class UpdatePeopleController extends Controller {
         Gson converter = new Gson();
         String json = converter.toJson(this.person);
         try {
-            Response response = RequestHandler.post(App.BASE_URL, json);
-            if (response.getResponseCode() == 201) {
-                warning("Person added!");
-                nameField.setText("");
-                emailField.setText("");
-                ageField.getValueFactory().setValue(30);
+            String url= App.BASE_URL+ "/" +this.person.getId();
+            Response response = RequestHandler.put(url, json);
+            if (response.getResponseCode() == 200) {
+                Stage stage =(Stage) this.updateButton.getScene().getWindow();
+                stage.close();
             } else {
                 String content = response.getContent();
                 error(content);
@@ -62,12 +70,5 @@ public class UpdatePeopleController extends Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-        nameField.setText((this.person.getName()));
-        emailField.setText((this.person.getEmail()));
-        ageField.getValueFactory().setValue((this.person.getAge()));
     }
 }

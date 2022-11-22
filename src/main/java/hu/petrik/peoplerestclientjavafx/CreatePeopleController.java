@@ -58,7 +58,4 @@ public class CreatePeopleController extends Controller {
         }
     }
 
-    public void updateClick(ActionEvent actionEvent) {
-
-    }
 }
