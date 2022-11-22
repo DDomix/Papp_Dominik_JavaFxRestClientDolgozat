@@ -20,6 +20,7 @@ public class UpdatePeopleController extends Controller {
     private Spinner<Integer> ageField;
     @FXML
     private Button updateButton;
+    private Person person;
 
     @FXML
     private void initialize() {
