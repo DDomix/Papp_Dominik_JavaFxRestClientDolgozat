@@ -4,11 +4,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class CreatePeopleController extends Controller {
+public class UpdatePeopleController extends Controller {
     @FXML
     private TextField nameField;
     @FXML
@@ -16,7 +19,7 @@ public class CreatePeopleController extends Controller {
     @FXML
     private Spinner<Integer> ageField;
     @FXML
-    private Button submitButton;
+    private Button updateButton;
 
     @FXML
     private void initialize() {
@@ -58,7 +61,4 @@ public class CreatePeopleController extends Controller {
         }
     }
 
-    public void updateClick(ActionEvent actionEvent) {
-
-    }
 }
