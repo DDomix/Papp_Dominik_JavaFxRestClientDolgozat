@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/null" fx:controller="hu.petrik.peoplerestclientjavafx.ListPeopleController">
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="20.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hu.petrik.peoplerestclientjavafx.ListPaymentController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -19,11 +19,12 @@
             <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteClick" text="Delete" />
          </children>
       </HBox>
-      <TableView fx:id="peopleTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <TableView fx:id="vasarlasTable" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="nameCol" minWidth="50.0" prefWidth="250.0" text="Name" />
           <TableColumn fx:id="emailCol" minWidth="50.0" prefWidth="250.0" text="Email" />
-            <TableColumn fx:id="ageCol" minWidth="50.0" prefWidth="75.0" text="Age" />
+            <TableColumn fx:id="pontokCol" minWidth="50.0" prefWidth="125.0" text="Husegpontok" />
+            <TableColumn fx:id="arCol" prefWidth="115.0" text="Ár" />
         </columns>
       </TableView>
    </children>

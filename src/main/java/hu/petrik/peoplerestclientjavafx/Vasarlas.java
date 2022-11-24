@@ -2,20 +2,23 @@ package hu.petrik.peoplerestclientjavafx;
 
 import com.google.gson.annotations.Expose;
 
-public class Person {
+public class Vasarlas {
     private int id;
     @Expose
     private String name;
     @Expose
     private String email;
     @Expose
-    private int age;
+    private int value;
+    @Expose
+    private int points;
 
-    public Person(int id, String name, String email, int age) {
+    public Vasarlas(int id, String name, String email, int ar, int points) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.age = age;
+        this.value = ar;
+        this.points = points;
     }
 
     public int getId() {
@@ -42,11 +45,19 @@ public class Person {
         this.email = email;
     }
 
-    public int getAge() {
-        return age;
+    public int getValue() {
+        return value;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setValue(int ar) {
+        this.value = ar;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
     }
 }

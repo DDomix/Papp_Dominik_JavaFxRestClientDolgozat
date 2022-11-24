@@ -1,7 +1,6 @@
 package hu.petrik.peoplerestclientjavafx;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,37 +11,44 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class UpdatePeopleController extends Controller {
+public class UpdatePaymentController extends Controller {
     @FXML
     private TextField nameField;
     @FXML
     private TextField emailField;
     @FXML
-    private Spinner<Integer> ageField;
+    private Spinner<Integer> vasarlasosszegField;
+    @FXML
+    private Spinner<Integer> husegpontokField;
     @FXML
     private Button updateButton;
-    private Person person;
+    private Vasarlas vasarlas;
 
 
-    public void setPerson(Person person) {
-        this.person = person;
-        nameField.setText((this.person.getName()));
-        emailField.setText((this.person.getEmail()));
-        ageField.getValueFactory().setValue((this.person.getAge()));
+    public void setPerson(Vasarlas vasarlas) {
+        this.vasarlas = vasarlas;
+        nameField.setText((this.vasarlas.getName()));
+        emailField.setText((this.vasarlas.getEmail()));
+        vasarlasosszegField.getValueFactory().setValue((this.vasarlas.getValue()));
+        husegpontokField.getValueFactory().setValue(this.vasarlas.getPoints());
     }
 
     @FXML
     private void initialize() {
         SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory =
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 200, 30);
-        ageField.setValueFactory(valueFactory);
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100000, 50000);
+        vasarlasosszegField.setValueFactory(valueFactory);
+        SpinnerValueFactory.IntegerSpinnerValueFactory valueFactory2 =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 500, 250);
+        husegpontokField.setValueFactory(valueFactory2);
     }
 
     @FXML
     public void updateClick(ActionEvent actionEvent) {
         String name = nameField.getText().trim();
         String email = emailField.getText().trim();
-        int age = ageField.getValue();
+        int ar = vasarlasosszegField.getValue();
+        int pontok=husegpontokField.getValue();
         if (name.isEmpty()) {
             warning("Name is required");
             return;
@@ -52,13 +58,14 @@ public class UpdatePeopleController extends Controller {
             return;
         }
         // TODO: validate email format
-        this.person.setName(name);
-        this.person.setEmail(email);
-        this.person.setAge(age);
+        this.vasarlas.setName(name);
+        this.vasarlas.setEmail(email);
+        this.vasarlas.setValue(ar);
+        this.vasarlas.setPoints(pontok);
         Gson converter = new Gson();
-        String json = converter.toJson(this.person);
+        String json = converter.toJson(this.vasarlas);
         try {
-            String url= App.BASE_URL+ "/" +this.person.getId();
+            String url= App.BASE_URL+ "/" +this.vasarlas.getId();
             Response response = RequestHandler.put(url, json);
             if (response.getResponseCode() == 200) {
                 Stage stage =(Stage) this.updateButton.getScene().getWindow();
